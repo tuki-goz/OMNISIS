@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4919a6c7-adeb-47a7-a281-fe0aa2a5bd1d">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="693"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaini" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     servicio_tecnico."id_servicio_tecnico" AS servicio_tecnico_id_servicio_tecnico,
+     servicio_tecnico."numero_servicio_tecnico" AS servicio_tecnico_numero_servicio_tecnico,
+     servicio_tecnico."descripcion_servicio_tecnico" AS servicio_tecnico_descripcion_servicio_tecnico,
+     servicio_tecnico."fecha_servicio_tecnico" AS servicio_tecnico_fecha_servicio_tecnico,
+     servicio_tecnico."estado_servicio_tecnico" AS servicio_tecnico_estado_servicio_tecnico,
+     cliente."descripcion_cliente" AS cliente_descripcion_cliente,
+     contrato."cliente_contrato" AS contrato_cliente_contrato
+FROM
+     "public"."cliente" cliente INNER JOIN "public"."contrato" contrato ON cliente."id_cliente" = contrato."id_cliente"
+     INNER JOIN "public"."servicio_tecnico" servicio_tecnico ON contrato."id_contrato" = servicio_tecnico."id_contrato"
+
+where servicio_tecnico."fecha_servicio_tecnico" between $P{fechaini} and $P{fechafin}]]>
+	</queryString>
+	<field name="servicio_tecnico_id_servicio_tecnico" class="java.lang.Integer"/>
+	<field name="servicio_tecnico_numero_servicio_tecnico" class="java.lang.String"/>
+	<field name="servicio_tecnico_descripcion_servicio_tecnico" class="java.lang.String"/>
+	<field name="servicio_tecnico_fecha_servicio_tecnico" class="java.lang.String"/>
+	<field name="servicio_tecnico_estado_servicio_tecnico" class="java.lang.String"/>
+	<field name="cliente_descripcion_cliente" class="java.lang.String"/>
+	<field name="contrato_cliente_contrato" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#6666FF" uuid="92cb2333-453d-45d6-92e3-b90fe480d331"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="145" y="0" width="213" height="51" forecolor="#FFFFFF" uuid="816af854-3674-44c2-9da2-4d9b38f3bb07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE SERVICIOS POR CLIENTE]]></text>
+			</staticText>
+			<image>
+				<reportElement x="6" y="0" width="140" height="51" uuid="245f5338-7ada-48d6-bcf7-db5e3ed2c7a8"/>
+				<imageExpression><![CDATA["C:\\Users\\Alvaro\\Documents\\git\\OMNISIS1LAST\\web\\logo.png"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="205" y="51" width="100" height="20" uuid="087f7cc0-181c-4ccd-a661-33116033b865"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="397" y="51" width="58" height="20" uuid="e6089a05-4001-45f0-9404-7ff91ed840a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="51" width="100" height="20" uuid="04f6c215-46e2-4ab6-9b23-732818c69d8f"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="28" backcolor="#CCCCFF" uuid="73f1a28b-9691-4381-8b15-824695eba4da"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="165" y="9" width="56" height="20" uuid="d1148582-2509-4e1d-a2e2-996617dcda56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="8" width="30" height="20" uuid="082bd47c-1d3d-441e-87ab-42c8e25f62e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="8" width="53" height="20" uuid="267701cd-246d-4e66-ba28-b95482eeb6e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="9" width="56" height="20" uuid="13564530-dfea-4488-929a-d853bde2c20a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="9" width="58" height="20" uuid="2322cc5b-4d88-49a0-b93c-e00438c7baf0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="8" width="56" height="20" uuid="ed232083-78cb-450e-9eca-eb3697083587"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[OPS Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="9" width="59" height="20" uuid="3092aaf6-6e2b-43ec-a08f-4aa682ad4621"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Contrato]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="25" backcolor="#CCCCFF" uuid="9570d729-216a-4419-ac18-de58c83acda2"/>
+			</rectangle>
+			<textField>
+				<reportElement x="5" y="5" width="30" height="20" uuid="8b109d92-1c46-43bf-a607-d1f3f252e1a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{servicio_tecnico_id_servicio_tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="5" width="56" height="20" uuid="b2399f2f-0d1f-4373-b73e-0d5ea43bf2da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{servicio_tecnico_numero_servicio_tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="147" y="5" width="90" height="20" uuid="2d27128f-a4e3-48ac-971e-6dd23a2359ac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{servicio_tecnico_descripcion_servicio_tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="5" width="57" height="20" uuid="05d32add-0968-41f9-b2e7-fce7bca645e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{servicio_tecnico_fecha_servicio_tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="5" width="80" height="20" uuid="7bbff8d6-a298-4d1b-8378-13090af4363a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{contrato_cliente_contrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="5" width="158" height="20" uuid="289f3830-3788-46ed-886a-57f6c4f96247"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cliente_descripcion_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="5" width="66" height="20" uuid="35ba974e-f1b4-4146-8ac6-67beec14a22b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{servicio_tecnico_estado_servicio_tecnico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

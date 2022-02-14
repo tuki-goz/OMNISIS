@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4919a6c7-adeb-47a7-a281-fe0aa2a5bd1d">
+	<property name="ireport.zoom" value="2.0490403660952117"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="proveedor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaini" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     compra."id_compra" AS compra_id_compra,
+     compra."nro_factura_compra" AS compra_nro_factura_compra,
+     compra."fecha_compra" AS compra_fecha_compra,
+     compra."liq_total_iva_compra" AS compra_liq_total_iva_compra,
+     compra."total_compra" AS compra_total_compra,
+     proveedor."nombre_proveedor" AS proveedor_nombre_proveedor,
+     contrato."codigo_contrato" AS contrato_codigo_contrato
+FROM
+     "public"."proveedor" proveedor INNER JOIN "public"."compra" compra ON proveedor."id_proveedor" = compra."id_proveedor"
+     INNER JOIN "public"."contrato" contrato ON compra."id_contrato" = contrato."id_contrato"
+WHERE
+     proveedor."nombre_proveedor" ILIKE $P{proveedor}
+ AND compra."fecha_compra"  BETWEEN  $P{fechaini} AND $P{fechafin}]]>
+	</queryString>
+	<field name="compra_id_compra" class="java.lang.Integer"/>
+	<field name="compra_nro_factura_compra" class="java.lang.String"/>
+	<field name="compra_fecha_compra" class="java.lang.String"/>
+	<field name="compra_liq_total_iva_compra" class="java.math.BigDecimal"/>
+	<field name="compra_total_compra" class="java.math.BigDecimal"/>
+	<field name="proveedor_nombre_proveedor" class="java.lang.String"/>
+	<field name="contrato_codigo_contrato" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#6666FF" uuid="92cb2333-453d-45d6-92e3-b90fe480d331"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="145" y="0" width="213" height="51" forecolor="#FFFFFF" uuid="816af854-3674-44c2-9da2-4d9b38f3bb07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE COMPRA POR PROVEEDOR]]></text>
+			</staticText>
+			<image>
+				<reportElement x="6" y="0" width="140" height="51" uuid="245f5338-7ada-48d6-bcf7-db5e3ed2c7a8"/>
+				<imageExpression><![CDATA["C:\\Users\\Alvaro\\Documents\\git\\OMNISIS1LAST\\web\\logo.png"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="205" y="51" width="100" height="20" uuid="087f7cc0-181c-4ccd-a661-33116033b865"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="391" y="51" width="64" height="20" uuid="bc4c15ca-e319-4601-a2ce-25feee732a3e"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="51" width="100" height="20" uuid="df9f1dfa-bb36-4b99-8b3e-b0724303cca2"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="28" backcolor="#CCCCFF" uuid="73f1a28b-9691-4381-8b15-824695eba4da"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="217" y="8" width="56" height="20" uuid="d1148582-2509-4e1d-a2e2-996617dcda56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="8" width="30" height="20" uuid="082bd47c-1d3d-441e-87ab-42c8e25f62e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="8" width="111" height="20" uuid="267701cd-246d-4e66-ba28-b95482eeb6e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Liquidación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="8" width="97" height="20" uuid="13564530-dfea-4488-929a-d853bde2c20a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="8" width="64" height="20" uuid="2322cc5b-4d88-49a0-b93c-e00438c7baf0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Pagado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="8" width="56" height="20" uuid="ed232083-78cb-450e-9eca-eb3697083587"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[N° Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="8" width="75" height="20" uuid="3092aaf6-6e2b-43ec-a08f-4aa682ad4621"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="5" width="29" height="20" uuid="0a55648e-9639-4920-9a37-93ca0e55f08c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{compra_id_compra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="5" width="109" height="20" uuid="42e3db1b-3383-41c7-be3a-4811bec4d9ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{proveedor_nombre_proveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="5" width="73" height="20" uuid="4aada306-9e73-4086-8019-066c983b3f26"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{compra_nro_factura_compra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="5" width="73" height="20" uuid="9381ddbc-dec2-494b-b405-114f68dd5a21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{contrato_codigo_contrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="5" width="75" height="20" uuid="b3fc9916-ae4d-476d-9402-a6128423f80c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{compra_fecha_compra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="5" width="75" height="20" uuid="7832706f-86e4-43df-941c-065a2662a052"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{compra_total_compra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="5" width="93" height="20" uuid="c7631416-0dea-41f9-8ec3-c4415ac6641a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{compra_liq_total_iva_compra}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

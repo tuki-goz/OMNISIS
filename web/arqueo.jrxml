@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77018fb4-c21e-4c4d-beec-77ba723cff30">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="75"/>
+	<queryString>
+		<![CDATA[SELECT
+     apertura_cierre_caja."id_apertura_cierre_caja" AS apertura_cierre_caja_id_apertura_cierre_caja,
+     apertura_cierre_caja."hora_apertura" AS apertura_cierre_caja_hora_apertura,
+     apertura_cierre_caja."fecha" AS apertura_cierre_caja_fecha,
+     apertura_cierre_caja."monto_apertura" AS apertura_cierre_caja_monto_apertura,
+     apertura_cierre_caja."hora_cierre" AS apertura_cierre_caja_hora_cierre,
+     apertura_cierre_caja."monto_cierre" AS apertura_cierre_caja_monto_cierre,
+     usuario."id_usuario" AS usuario_id_usuario,
+     usuario."nombre_usuario" AS usuario_nombre_usuario,
+     apertura_cierre_caja."monto_trans" AS apertura_cierre_caja_monto_trans,
+     apertura_cierre_caja."monto_cheque" AS apertura_cierre_caja_monto_cheque,
+     apertura_cierre_caja."monto_tarjeta" AS apertura_cierre_caja_monto_tarjeta,
+     caja."id_caja" AS caja_id_caja,
+     caja."descripcion_cajero" AS caja_descripcion_cajero,
+     caja."estado_caja" AS caja_estado_caja
+FROM
+     "public"."apertura_cierre_caja" apertura_cierre_caja 
+INNER JOIN "public"."usuario" usuario ON apertura_cierre_caja."id_usuario" = usuario."id_usuario"
+     INNER JOIN "public"."caja" caja ON apertura_cierre_caja."id_caja" = caja."id_caja"
+
+where  apertura_cierre_caja."id_apertura_cierre_caja" = (select MAX(apertura_cierre_caja."id_apertura_cierre_caja") from "public"."apertura_cierre_caja")]]>
+	</queryString>
+	<field name="apertura_cierre_caja_id_apertura_cierre_caja" class="java.lang.Integer"/>
+	<field name="apertura_cierre_caja_hora_apertura" class="java.sql.Time"/>
+	<field name="apertura_cierre_caja_fecha" class="java.lang.String"/>
+	<field name="apertura_cierre_caja_monto_apertura" class="java.math.BigDecimal"/>
+	<field name="apertura_cierre_caja_hora_cierre" class="java.sql.Time"/>
+	<field name="apertura_cierre_caja_monto_cierre" class="java.math.BigDecimal"/>
+	<field name="usuario_id_usuario" class="java.lang.Integer"/>
+	<field name="usuario_nombre_usuario" class="java.lang.String"/>
+	<field name="apertura_cierre_caja_monto_trans" class="java.math.BigDecimal"/>
+	<field name="apertura_cierre_caja_monto_cheque" class="java.math.BigDecimal"/>
+	<field name="apertura_cierre_caja_monto_tarjeta" class="java.math.BigDecimal"/>
+	<field name="caja_id_caja" class="java.lang.Integer"/>
+	<field name="caja_descripcion_cajero" class="java.lang.String"/>
+	<field name="caja_estado_caja" class="java.lang.String"/>
+	<variable name="Total" class="java.lang.Double" calculation="Sum"/>
+	<variable name="totales" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{apertura_cierre_caja_monto_trans}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" uuid="6b3ab28f-0aac-42f7-962e-4c0297b1e5d2"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="226" y="59" width="100" height="20" uuid="b5a71b85-5ad8-419f-a9bc-1dc326549e7c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="187" y="59" width="39" height="20" uuid="6a5b0eed-a437-4348-989c-0863bf339826"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="39" width="33" height="20" uuid="1ec91fcd-2127-4633-a703-f614fd761cc8"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CAJA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="39" width="47" height="20" uuid="8fe31fac-cf45-4878-9199-b979c6b761c3"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CAJERO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="39" width="100" height="20" uuid="c1ce63e0-3497-490b-8ebd-d29c7b08fd8d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{caja_descripcion_cajero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="373" y="39" width="100" height="20" uuid="d79a133c-a1da-43c7-9841-0ad42eda793c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{usuario_nombre_usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="206" y="19" width="132" height="20" uuid="0ea06e34-e524-4301-9697-bc33efe75eaf"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[ARQUEO DE CAJA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="145" splitType="Stretch">
+			<line>
+				<reportElement x="275" y="0" width="1" height="145" uuid="867b73da-2d50-40bf-8ec0-d555cece0efe"/>
+			</line>
+			<line>
+				<reportElement x="428" y="0" width="1" height="145" uuid="7b511491-40f4-4388-a6b2-c49e24a7b18b"/>
+			</line>
+			<staticText>
+				<reportElement x="92" y="0" width="100" height="20" uuid="bf8c6fbf-c68e-4dcc-a7af-49730c057f46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INGRESOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="0" width="100" height="20" uuid="ac57029d-d452-49e7-8dae-0ad7a9c68a22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENTAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="0" width="100" height="20" uuid="3de09206-cf68-44db-afef-3d88b6460f24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="20" width="100" height="20" uuid="f17493c5-3d5a-4b29-8031-96b22005d679"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto Inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="40" width="100" height="20" uuid="28cd3e49-e824-406d-a58a-679237bfcff4"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto Transferencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="60" width="100" height="20" uuid="8e68407a-7309-456e-bf41-f8837bde38ed"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto Cheques]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="80" width="100" height="20" uuid="363881e6-0de9-4e7f-b2d9-1b189879d52c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto Tarjetas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="122" width="100" height="20" uuid="b00bb230-f8b8-49d1-b299-eee66c2ceab6"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Ventas Totales]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="20" width="100" height="20" uuid="41ae577b-a2b3-4826-a26c-993113842cf4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apertura_cierre_caja_monto_apertura}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="18b7d4a3-ca74-4a0b-9980-1d4701a1a8ef"/>
+			</line>
+			<textField>
+				<reportElement x="305" y="40" width="100" height="20" uuid="8c9b823d-28ca-4a2a-9fda-c5428b6bbbc7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apertura_cierre_caja_monto_trans}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="60" width="100" height="20" uuid="47b84060-f4aa-4fd7-9dd3-66a6637e322d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apertura_cierre_caja_monto_cheque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="80" width="100" height="20" uuid="80b6b3c4-a086-4ceb-9fee-5c8046a237b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apertura_cierre_caja_monto_tarjeta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="455" y="122" width="100" height="20" uuid="34d39308-5f43-4963-a2f4-d748d1b484c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totales}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="80" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" uuid="dde23436-4f02-4f4e-b7c2-7e35a645be2f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="92" y="0" width="100" height="20" uuid="28653f08-dca6-49b6-9aa4-e6ec200785c6"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[TOTAL CIERRE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="456" y="0" width="100" height="20" uuid="dc969b7a-e534-4e31-9980-3fd95e37ffc7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apertura_cierre_caja_monto_cierre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="45" width="152" height="20" uuid="2b594c6c-1d58-4b81-b4c1-d840dd962af6"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[FIRMA:............................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="45" width="219" height="20" uuid="3fa006ff-8cbd-4833-bad6-f5741e46efd7"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ACLARACIÓN: .................................................]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="79" width="555" height="1" uuid="38fd95bb-8c00-4ef1-b961-c8cc72b34195"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

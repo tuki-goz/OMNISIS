@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4919a6c7-adeb-47a7-a281-fe0aa2a5bd1d">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="400"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="proveedor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     importacion."id_importacion" AS importacion_id_importacion,
+     importacion."llamado_id" AS importacion_llamado_id,
+     importacion."fecha_importacion" AS importacion_fecha_importacion,
+     importacion."monto_total_importacion" AS importacion_monto_total_importacion,
+     cliente."descripcion_cliente" AS cliente_descripcion_cliente,
+     proveedor."nombre_proveedor" AS proveedor_nombre_proveedor,
+     pais."descripcion_pais" AS pais_descripcion_pais
+FROM
+     "public"."importacion" importacion INNER JOIN "public"."proveedor" proveedor ON importacion."id_proveedor" = proveedor."id_proveedor"
+     INNER JOIN "public"."cliente" cliente ON importacion."id_cliente" = cliente."id_cliente"
+     INNER JOIN "public"."pais" pais ON importacion."id_pais" = pais."id_pais"
+WHERE
+     proveedor."nombre_proveedor" ILIKE $P{proveedor}]]>
+	</queryString>
+	<field name="importacion_id_importacion" class="java.lang.Integer"/>
+	<field name="importacion_llamado_id" class="java.lang.String"/>
+	<field name="importacion_fecha_importacion" class="java.lang.String"/>
+	<field name="importacion_monto_total_importacion" class="java.math.BigDecimal"/>
+	<field name="cliente_descripcion_cliente" class="java.lang.String"/>
+	<field name="proveedor_nombre_proveedor" class="java.lang.String"/>
+	<field name="pais_descripcion_pais" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#6666FF" uuid="92cb2333-453d-45d6-92e3-b90fe480d331"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="145" y="0" width="213" height="51" forecolor="#FFFFFF" uuid="816af854-3674-44c2-9da2-4d9b38f3bb07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE IMPORTACIONES POR PROVEEDOR]]></text>
+			</staticText>
+			<image>
+				<reportElement x="6" y="0" width="140" height="51" uuid="245f5338-7ada-48d6-bcf7-db5e3ed2c7a8"/>
+				<imageExpression><![CDATA["C:\\Users\\gozmi\\OneDrive\\Documentos\\git\\OMNISIS1LAST\\web\\logo.png"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="205" y="51" width="100" height="20" uuid="087f7cc0-181c-4ccd-a661-33116033b865"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="28" backcolor="#CCCCFF" uuid="73f1a28b-9691-4381-8b15-824695eba4da"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="181" y="8" width="56" height="20" uuid="d1148582-2509-4e1d-a2e2-996617dcda56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="8" width="30" height="20" uuid="082bd47c-1d3d-441e-87ab-42c8e25f62e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="8" width="53" height="20" uuid="267701cd-246d-4e66-ba28-b95482eeb6e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="9" width="56" height="20" uuid="13564530-dfea-4488-929a-d853bde2c20a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="9" width="58" height="20" uuid="2322cc5b-4d88-49a0-b93c-e00438c7baf0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Procedencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="8" width="56" height="20" uuid="ed232083-78cb-450e-9eca-eb3697083587"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Llamado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="9" width="59" height="20" uuid="3092aaf6-6e2b-43ec-a08f-4aa682ad4621"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="25" backcolor="#CCCCFF" uuid="9570d729-216a-4419-ac18-de58c83acda2"/>
+			</rectangle>
+			<textField>
+				<reportElement x="8" y="5" width="27" height="20" uuid="5f036a01-95a3-41a1-a1d0-334d0371c13d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{importacion_id_importacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="5" width="56" height="20" uuid="8abf338d-cee5-470d-9972-987cf17896bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{importacion_llamado_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="5" width="56" height="20" uuid="e1a06eaf-44c5-489f-8d38-998137f8d925"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{importacion_fecha_importacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="5" width="56" height="20" uuid="009d41ce-7554-4b87-b89a-04383e20189e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{importacion_monto_total_importacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="5" width="82" height="20" uuid="a1353574-080e-4abc-95ed-655d87dcf47f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pais_descripcion_pais}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="246" y="5" width="76" height="20" uuid="d62163cc-e136-4aa4-accd-dae5e99669bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{proveedor_nombre_proveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="5" width="141" height="20" uuid="07906d36-98e9-4b8e-bdee-735e2e30b87a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cliente_descripcion_cliente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
