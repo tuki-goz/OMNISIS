@@ -8,6 +8,7 @@ TENER EN CUENTA LOS SIGUIENTES PASOS:
 	datos_prueba
 
 LAS LIBRERIAS SE ENCUENTRAS EN LA CARPETA JARS
+https://drive.google.com/drive/folders/1xQSNxORb6Ee-0Dp-TCZhqeiG2qlAzVey?usp=sharing
 
 PARA ACCEDER AL SISTEMA
 	usuario: admin
