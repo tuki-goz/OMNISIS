@@ -34,7 +34,7 @@ public class caja extends HttpServlet {
         String accion = request.getParameter("accion");
         ArrayList<Caja> cajaA = new ArrayList();
         Caja leer = new Caja();
-        if (accion.equals("Caja")) {
+        if (accion.equals("Caja")) {//prueba
             limpiarVariables();
             limpiarcampos();
             cajaA = leer.leerCajaRe();
