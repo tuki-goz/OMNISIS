@@ -13,3 +13,6 @@ https://drive.google.com/drive/folders/1xQSNxORb6Ee-0Dp-TCZhqeiG2qlAzVey?usp=sha
 PARA ACCEDER AL SISTEMA
 	usuario: admin
 	contraseña: 456
+	
+Acceso:
+https://tuki-goz.github.io/OMNISIS/
